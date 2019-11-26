@@ -48,20 +48,44 @@ namespace comp110_worksheet_7
 		// Return the nesting depth of the given directory. A directory containing only files (no subdirectories) has a depth of 0.
 		public static int GetDepth(string directory)
 		{
-			throw new NotImplementedException();
-		}
+            string[] depth;
+            int depthValue = 0;
+
+            depth = Directory.GetDirectories(directory);
+            foreach (string dir in depth)
+            {
+                depthValue++;
+            }
+            return depthValue;
+        }
 
 		// Get the path and size (in bytes) of the smallest file below the given directory
 		public static Tuple<string, long> GetSmallestFile(string directory)
 		{
-			throw new NotImplementedException();
-		}
+            string[] files;
+            Tuple<string, long> size;
+            size = new Tuple<string, long>("hi", 1);
+            files = Directory.GetFiles(directory, ".", SearchOption.AllDirectories);
+            string smallestFile = (from item in files let len = GetFileSize(item) where len > 0 orderby len ascending select item).First();
+            long minSize = GetFileSize(smallestFile);
+            string minSizeName = Path.GetFileName(smallestFile);
+            size = new Tuple<string, long>(minSizeName, minSize);
+            return size;
+        }
 
 		// Get the path and size (in bytes) of the largest file below the given directory
 		public static Tuple<string, long> GetLargestFile(string directory)
 		{
-			throw new NotImplementedException();
-		}
+            string[] files;
+            Tuple<string, long> size;
+            size = new Tuple<string, long>("hi", 1);
+            files = Directory.GetFiles(directory, ".", SearchOption.AllDirectories);
+            string largestFile = (from item in files let len = GetFileSize(item) where len > 0 orderby len descending select item).First();
+            long maxSize = GetFileSize(largestFile);
+            string maxSizeName = Path.GetFileName(largestFile);
+            size = new Tuple<string, long>(maxSizeName, maxSize);
+            return size;
+        }
 
 		// Get all files whose size is equal to the given value (in bytes) below the given directory
 		public static IEnumerable<string> GetFilesOfSize(string directory, long size)
