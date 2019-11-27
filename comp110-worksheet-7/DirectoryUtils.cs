@@ -90,7 +90,19 @@ namespace comp110_worksheet_7
 		// Get all files whose size is equal to the given value (in bytes) below the given directory
 		public static IEnumerable<string> GetFilesOfSize(string directory, long size)
 		{
-			throw new NotImplementedException();
-		}
+            string[] files;
+            List<string> filesOfSize = new List<string>();
+            files = Directory.GetFiles(directory, "*.*", SearchOption.AllDirectories);
+            long fileSize;
+            foreach (string file in files)
+            {
+                fileSize = GetFileSize(file);
+                if (fileSize == size)
+                {
+                    filesOfSize.Add(Path.GetFileName(file));
+                }
+            }
+            return filesOfSize;
+        }
 	}
 }
