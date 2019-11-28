@@ -68,7 +68,7 @@ namespace comp110_worksheet_7
             files = Directory.GetFiles(directory, ".", SearchOption.AllDirectories);
             string smallestFile = (from item in files let len = GetFileSize(item) where len > 0 orderby len ascending select item).First();
             long minSize = GetFileSize(smallestFile);
-            string minSizeName = Path.GetFileName(smallestFile);
+            string minSizeName = smallestFile;
             size = new Tuple<string, long>(minSizeName, minSize);
             return size;
         }
@@ -82,7 +82,7 @@ namespace comp110_worksheet_7
             files = Directory.GetFiles(directory, ".", SearchOption.AllDirectories);
             string largestFile = (from item in files let len = GetFileSize(item) where len > 0 orderby len descending select item).First();
             long maxSize = GetFileSize(largestFile);
-            string maxSizeName = Path.GetFileName(largestFile);
+            string maxSizeName = largestFile;
             size = new Tuple<string, long>(maxSizeName, maxSize);
             return size;
         }
@@ -99,7 +99,7 @@ namespace comp110_worksheet_7
                 fileSize = GetFileSize(file);
                 if (fileSize == size)
                 {
-                    filesOfSize.Add(Path.GetFileName(file));
+                    filesOfSize.Add(file);
                 }
             }
             return filesOfSize;
